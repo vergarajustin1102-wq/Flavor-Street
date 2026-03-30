@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Flavor Street</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+body {
+  background: #0f0f0f;
+  color: #fff;
+}
+
+/* NAVBAR */
+header {
+  position: fixed;
+  width: 100%;
+  background: rgba(0,0,0,0.85);
+  padding: 15px 40px;
+  display: flex;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+nav {
+  display: flex;
+  align-items: center;
+}
+
+nav a {
+  color: white;
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+/* HERO */
+#home {
+  height: 100vh;
+  background: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836') center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* MENU */
+#menu {
+  padding: 100px 40px;
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+  gap: 20px;
+}
+
+.card {
+  background: #1c1c1c;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.card-content {
+  padding: 15px;
+}
+
+button {
+  background: #ff4d4d;
+  border: none;
+  padding: 10px;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* ORDER PANEL */
+#orderPanel {
+  position: fixed;
+  right: -300px;
+  top: 0;
+  width: 300px;
+  height: 100%;
+  background: #111;
+  padding: 20px;
+  transition: 0.3s;
+  z-index: 2000;
+}
+
+#orderPanel.active {
+  right: 0;
+}
+
+#closeBtn {
+  background: red;
+  padding: 5px 10px;
+  border: none;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+/* SECTIONS */
+section {
+  padding: 80px 40px;
+  text-align: center;
+}
+
+footer {
+  background: #000;
+  padding: 20px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h2>Flavor Street 🍔</h2>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#menu">Menu</a>
+    <a href="#contact">Contact</a>
+    <a onclick="toggleOrders()">📋 Orders</a>
+  </nav>
+</header>
+
+<section id="home">
+  <h1>Order Your Favorites 🔥</h1>
+</section>
+
+<section id="menu">
+  <h2>Menu</h2>
+  <div class="menu-grid">
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd">
+      <div class="card-content">
+        <h3>Burger</h3>
+        <p>₱120</p>
+        <button onclick="addOrder('Burger',120)">Add Order</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+      <div class="card-content">
+        <h3>Fries</h3>
+        <p>₱80</p>
+        <button onclick="addOrder('Fries',80)">Add Order</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://images.unsplash.com/photo-1594007654729-407eedc4be65">
+      <div class="card-content">
+        <h3>Chicken</h3>
+        <p>₱150</p>
+        <button onclick="addOrder('Chicken',150)">Add Order</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ORDER PANEL -->
+<div id="orderPanel">
+  <button id="closeBtn" onclick="toggleOrders()">Close</button>
+  <h3>📋 Your Orders</h3>
+  <ul id="order-list"></ul>
+  <p>Total: ₱<span id="total">0</span></p>
+</div>
+
+<section id="contact">
+  <h2>Contact</h2>
+  <p>Email: vergara.justin1102@gmail.com</p>
+</section>
+
+<footer>
+  <p>© 2026 Flavor Street</p>
+</footer>
+
+<script>
+let total = 0;
+
+function addOrder(name, price) {
+  const list = document.getElementById("order-list");
+  const item = document.createElement("li");
+  item.textContent = name + " - ₱" + price;
+  list.appendChild(item);
+
+  total += price;
+  document.getElementById("total").textContent = total;
+}
+
+function toggleOrders() {
+  document.getElementById("orderPanel").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
